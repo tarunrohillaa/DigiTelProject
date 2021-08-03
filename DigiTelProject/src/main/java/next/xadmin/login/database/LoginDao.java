@@ -62,7 +62,6 @@ public class LoginDao {
 		
 	}
 	public boolean validateTele(LoginBean loginBean) {
-		// TODO Auto-generated method stub
 		loadDriver(DbDriver);
 		Connection con = getConnection();
 		boolean status = false;
