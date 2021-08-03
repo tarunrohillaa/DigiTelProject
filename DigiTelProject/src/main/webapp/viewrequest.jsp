@@ -187,7 +187,7 @@ body{
                     </div>
                     <div class="card-footer">
                     
-                         <a href="./loginSuccess.jsp" class="btn btn-success float-right" style="background-color: #48e5f7;">Home</a>
+                         <a href="./loginSuccess.jsp" class="btn btn-success float-right" style="background-color: #48e5f7;">Back</a>
                         
                         
                     </div>

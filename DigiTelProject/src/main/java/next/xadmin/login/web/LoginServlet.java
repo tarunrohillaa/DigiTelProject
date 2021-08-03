@@ -72,17 +72,10 @@ public class LoginServlet extends HttpServlet {
 		if(loginDao.userValidate(loginBean))
 		{
 			
-//			RequestDispatcher rd = request.getRequestDispatcher("/userdashboard.jsp");  
-//			try {  
-//			       rd.forward(request, response);  
-//			            return;  
-//			     }catch(Exception e){}
-			
-//			if(loginDao.lastLogin(loginBean)!=0)
-//			{
+
+
 				request.setAttribute( "theUserName", username );
 				
-//				response.sendRedirect("userdashboard.jsp");
 				
 				
 				RequestDispatcher rd = request.getRequestDispatcher("userlogin.jsp");
@@ -90,28 +83,17 @@ public class LoginServlet extends HttpServlet {
 				
 				
 				
-//			}
 			
 		}
 		if(loginDao.userValidateTele(loginBean))
 		{
 			
-//			if(loginDao.lastLogin(loginBean)!=0)
-//			{
 				request.setAttribute( "theUserName", username );
-//				response.sendRedirect("userdashboard.jsp");
 				RequestDispatcher rd = request.getRequestDispatcher("userlogin.jsp");
 				rd.forward(request, response);
-//			}
 			
 			
 
-			
-//			RequestDispatcher rd = request.getRequestDispatcher("/userdashboard.jsp");  
-//			try {  
-//			       rd.forward(request, response);  
-//			            return;  
-//			     }catch(Exception e){}
 			
 		}
 		

@@ -11,10 +11,7 @@ import java.util.Date;
 import next.xadmin.login.bean.LoginBean;
 
 public class LoginDao {
-//	private String DbUrl = "jdbc:mysql://localhost:/mydb";
-//	private String DbUser ="satnam";
-//	private String DbPassword = "Satnam@123";
-//	private String DbDriver = "com.mysql.jdbc.Driver";
+
 	private String DbUrl = "jdbc:mysql://localhost:/mydb1";
 	private String DbUser ="root";
 	private String DbPassword = "1@Rootpassword";
@@ -85,10 +82,7 @@ public class LoginDao {
 		return status;
 	}
 	public boolean userValidate(LoginBean loginBean) {
-		// TODO Auto-generated method stub
-		//Date date = new Date();
-	   // SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-	   // String currentDate = dateFormat.format(date);
+
 		loadDriver(DbDriver);
 		Connection con = getConnection();
 		
