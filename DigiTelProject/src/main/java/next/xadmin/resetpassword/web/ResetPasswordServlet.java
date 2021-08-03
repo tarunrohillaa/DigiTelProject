@@ -2,6 +2,7 @@ package next.xadmin.resetpassword.web;
 
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +18,7 @@ import next.xadmin.resetpassword.bean.ResetPasswordBean;
 /**
  * Servlet implementation class ResetPassword
  */
-@WebServlet("/resetpassword")
+@WebServlet("/Reset")
 public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//private static final long passwordexpire = 30L * 24L * 60L * 60L * 1000L;

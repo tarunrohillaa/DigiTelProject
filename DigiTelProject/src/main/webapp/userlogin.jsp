@@ -30,7 +30,7 @@
 		 return false;
 		 }
 	 
-	 if(!tele.match(regextele)){
+	 if(!telenumber.match(regextele)){
 		 alert("Input an Telehone No.[xxxxxxxxxx] of 10 digits");
 		 document.myForm.telenumber.focus();
 		 return false;
@@ -147,7 +147,7 @@ ResultSet rs1;
 ResultSet Rs;
 Class.forName("com.mysql.cj.jdbc.Driver");
 con=DriverManager.getConnection("jdbc:mysql://localhost:/mydb1", "root", "1@Rootpassword");
-String Uname = (String)request.getAttribute("uname");
+String Uname = (String)session.getAttribute("uname");
 String Username = (String)request.getAttribute("theUserName");
 %>
     <header class="header">
@@ -181,7 +181,7 @@ String Username = (String)request.getAttribute("theUserName");
                                 stmt=con.createStatement();
                                  
                               
-                                String data = "SELECT * FROM LASTLOGIN WHERE username like'%"+Username+"%'";
+                                String data = "SELECT * FROM lastlogin WHERE username like'%"+Uname+"%'";
                                 rs=stmt.executeQuery(data);
                                 
                                 %>
@@ -255,10 +255,10 @@ String Username = (String)request.getAttribute("theUserName");
 						    	 String search=request.getParameter("search");
 						    	 String query;
 						    	 if(search!=null){
-						    	  query = "SELECT * FROM USERREQUEST WHERE ID like '%"+search+"%' OR NAME like '%"+search.toUpperCase()+"%' OR NAME like '%"+search+"%' OR TELENUM like'%"+search+"%' ";
+						    	  query = "SELECT * FROM userrequest WHERE ID like '%"+search+"%' OR NAME like '%"+search.toUpperCase()+"%' OR NAME like '%"+search+"%' OR TELENUMBER like'%"+search+"%' ";
 						    	 }
 						    	 else{
-						    	   query="SELECT ID, NAME, TELENUMBER, STAGE FROM USERREQUEST WHERE OWNER like'%"+Username+"%'";
+						    	   query="SELECT ID, NAME, TELENUMBER, STAGE FROM userrequest WHERE OWNER like'%"+Uname+"%'";
 						    	 }
 						    	 rss=stmts.executeQuery(query);
 						    	 while(rss.next())
@@ -298,14 +298,14 @@ String Username = (String)request.getAttribute("theUserName");
                                     <button class="btn btn-success float-right" onclick="return Validate()" style="background-color: #48e5f7;">
                                        <p>Logout</p>
                                        
-             <div>
+             
             <%
             
            
     		PreparedStatement ps;
     		PreparedStatement ps1;
     		String sql2;
-    		String datas = "Select * from lastlogin where USERNAME='"+Username+"'";
+    		String datas = "Select * from lastlogin where USERNAME='"+Uname+"'";
     		
     		try {
     			ps = con.prepareStatement(datas);
@@ -319,7 +319,7 @@ String Username = (String)request.getAttribute("theUserName");
     					sql2 = "INSERT INTO LASTLOGIN (USERNAME, LASTLOGINDATE) VALUES(?, SYSTIMESTAMP) ";
     				}
     			 ps1 = con.prepareStatement(sql2);
-    				ps1.setString(1, Username);
+    				ps1.setString(1, Uname);
     				int r1 = ps1.executeUpdate();
     		} catch (SQLException e1) {
     			// TODO Auto-generated catch block
@@ -327,7 +327,7 @@ String Username = (String)request.getAttribute("theUserName");
     		}
             
             %>
-            </div>
+            
                                        
                                   
                                        

@@ -153,7 +153,7 @@ body{
                 <form name ="myForm" method="post" action="requestuser" onsubmit="return Validate()">
                 
                 <div class="card">
-                    <div class="card-header text-white h3" style="background-color: #48e5f7;;"><b>Add user</b></div>
+                    <div class="card-header text-white h3" style="background-color: #48e5f7;;"><b>Add New Number</b></div>
                     <div class="card-body">
                     <% 
                         stmt = con.createStatement();

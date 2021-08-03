@@ -5,53 +5,111 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import next.xadmin.login.bean.LoginBean;
 
 public class LoginDao {
-
-	private String dbUrl = "jdbc:mysql://localhost:/mydb1";
-	private String dbUname = "root";
-	private String dbPassword = "1@Rootpassword";
-	private String dbDriver = "com.mysql.cj.jdbc.Driver";
-	public void loadDriver(String dbDriver)
+//	private String DbUrl = "jdbc:mysql://localhost:/mydb";
+//	private String DbUser ="satnam";
+//	private String DbPassword = "Satnam@123";
+//	private String DbDriver = "com.mysql.jdbc.Driver";
+	private String DbUrl = "jdbc:mysql://localhost:/mydb1";
+	private String DbUser ="root";
+	private String DbPassword = "1@Rootpassword";
+	private String DbDriver = "com.mysql.cj.jdbc.Driver";
+	
+	
+	
+	public void loadDriver(String DbDriver)
 	{
 		try {
-			Class.forName(dbDriver);
+			Class.forName(DbDriver);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public Connection getConnection()
-	{
+	public Connection getConnection() {
 		Connection con = null;
+		
 		try {
-			con = (Connection) DriverManager.getConnection(dbUrl,dbUname,dbPassword);
+			con = DriverManager.getConnection(DbUrl, DbUser, DbPassword);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return con;
+		
 	}
-	
 	public boolean validate(LoginBean loginBean) {
-		loadDriver(dbDriver);
+		// TODO Auto-generated method stub
+		loadDriver(DbDriver);
 		Connection con = getConnection();
 		boolean status = false;
 		
-		String sql= "select * from login where username = ? and password=?";
-		
+		String sql = "select EMAIL, PASSWORD from LOGIN where EMAIL = ? and PASSWORD = ?";
 		PreparedStatement ps;
 		try {
-			ps =((java.sql.Connection) con).prepareStatement(sql);
+			ps = con.prepareStatement(sql);
+			ps.setString(1, loginBean.getUsername());
+			ps.setString(2, loginBean.getPassword());
+		ResultSet rs = ps.executeQuery();
+		status = rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return status;
+		
+	}
+	public boolean validateTele(LoginBean loginBean) {
+		// TODO Auto-generated method stub
+		loadDriver(DbDriver);
+		Connection con = getConnection();
+		boolean status = false;
+		
+		String sql = "select TELENUMBER, PASSWORD from LOGIN where TELENUMBER = ? and PASSWORD = ?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, loginBean.getUsername());
+			ps.setString(2, loginBean.getPassword());
+		ResultSet rs = ps.executeQuery();
+		status = rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return status;
+	}
+	public boolean userValidate(LoginBean loginBean) {
+		// TODO Auto-generated method stub
+		//Date date = new Date();
+	   // SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	   // String currentDate = dateFormat.format(date);
+		loadDriver(DbDriver);
+		Connection con = getConnection();
+		
+		boolean status = false;
+		
+		
+		String sql = "select EMAIL, PASSWORD from USERLOGIN where EMAIL = ? and PASSWORD = ?";
+		
+		PreparedStatement ps;
+		
+		try {
+			ps = con.prepareStatement(sql);
+			
 			ps.setString(1, loginBean.getUsername());
 			ps.setString(2, loginBean.getPassword());
 			
-		ResultSet rs = ps.executeQuery();
-		status= rs.next();
+			ResultSet rs = ps.executeQuery();
 			
+			status = rs.next();
+		   	
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,33 +118,73 @@ public class LoginDao {
 		
 	}
 	
-	public boolean validate1(LoginBean loginBean) {
-		loadDriver(dbDriver);
+	
+	
+	public boolean userValidateTele(LoginBean loginBean) {
+		// TODO Auto-generated method stub
+		loadDriver(DbDriver);
 		Connection con = getConnection();
 		boolean status = false;
 		
-		String sql= "select * from userlogin where email = ? and password=?";
-		
+		String sql = "select TELENUMBER, PASSWORD from USERLOGIN where TELENUMBER = ? and PASSWORD = ?";
 		PreparedStatement ps;
 		try {
-			ps =((java.sql.Connection) con).prepareStatement(sql);
-			ps.setString(1, loginBean.getEmail());
+			ps = con.prepareStatement(sql);
+			ps.setString(1, loginBean.getUsername());
 			ps.setString(2, loginBean.getPassword());
-			
 		ResultSet rs = ps.executeQuery();
-		status= rs.next();
-			
+		status = rs.next();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 		return status;
+		
+	}
+	Date date = new Date();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    String currentDate = dateFormat.format(date);
+	
+	public int lastLogin(LoginBean loginBean) {
+		// TODO Auto-generated method stub
+		
+		loadDriver(DbDriver);
+		Connection con = getConnection();
+		ResultSet r1;
+		int rs =0;
+		PreparedStatement ps;
+		PreparedStatement ps1;
+		String sql2;
+		String user = loginBean.getUsername();
+		String data = "Select * from LASTLOGIN where USERNAME='"+user+"'";
+		
+		try {
+			ps = con.prepareStatement(data);
+			 r1= ps.executeQuery(data);
+			 
+			 if(r1.next()) {
+					sql2= "UPDATE LASTLOGIN set LASTLOGINDATE = SYSTIMESTAMP where USERNAME=?";
+				}
+				else {
+					
+					sql2 = "INSERT INTO LASTLOGIN (USERNAME, LASTLOGINDATE) VALUES(?, SYSTIMESTAMP) ";
+				}
+			 ps1 = con.prepareStatement(sql2);
+				ps1.setString(1, loginBean.getUsername());
+				rs = ps1.executeUpdate();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			
+		return rs;
+		
+	
 		
 	}
 	
 	
+	
+	
+
 }

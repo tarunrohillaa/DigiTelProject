@@ -210,7 +210,7 @@ font-weight: bolder;
     <div class="loginbox">
         
         <h1>Reset Password</h1>
-                <form method="post" name="myForm" action="resetpassword" onsubmit="return Validate()">
+                <form method="post" name="myForm" action="Reset" onsubmit="return Validate()">
             <p>EMAIL</p>
             <input type="text" name="email" placeholder="Enter Username" required>
             <p>Old Password</p>

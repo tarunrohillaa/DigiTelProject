@@ -1,6 +1,7 @@
 package next.xadmin.resetpassword.database;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,7 +71,7 @@ public class ResetPasswordDao {
 			int rs = 0;
 			if(validate(resetPasswordBean))
 			{
-			String sql = "update USERLOGIN set PASSWORD = ?, PASSWORDCHANGE = SYSTIMESTAMP where EMAIL = ? and PASSWORD = ? and TELENUMBER = ?";
+			String sql = "update userlogin set PASSWORD = ?, PASSWORDCHANGE = SYSTIMESTAMP where EMAIL = ? and PASSWORD = ? and TELENUMBER = ?";
 			
 			PreparedStatement ps;
 			try {

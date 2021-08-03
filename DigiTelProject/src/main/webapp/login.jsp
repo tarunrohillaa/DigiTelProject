@@ -5,6 +5,35 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>DigiTel</title>
+<script type="text/javascript">
+ function validate(){
+	 var uname = document.myForm.username.value;
+	 var pass = document.myForm.password.value;
+	 var regexmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+	 var regextele = /^\d{10}$/;
+	 
+	 if(uname==""){
+		 alert("please enter username");
+		 document.myForm.username.focus();
+		 return false;
+		 }
+	 if(!(uname.match(regexmail) || uname.match(regextele)))
+	 {
+	 alert("Please enter correct Email / Telephone Number");
+	 document.myForm.username.focus();
+	 return false;
+	 
+	 }
+	 
+	 if(pass==""){
+		 alert("please enter password");
+		 document.myForm.password.focus();
+		 return false;
+		 }
+	 
+	 
+ }
+</script>
 <style>
 body{
     margin: 0;
@@ -180,7 +209,7 @@ h1{
     <div class="loginbox">
         <img src="avatar.png" class="avatar" alt="avatar">
         <h1>Login Here</h1>
-        <form action="login" method="post">
+<form name ="myForm" action="login" method ="post" onsubmit="return validate()">
             <p>UserName/Telephone No.: </p>
             <input type="text" name="username" placeholder="Enter Username" required>
             <p>Password: </p>
